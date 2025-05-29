@@ -1,7 +1,64 @@
 // Font Lato
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;800&display=swap");
 
-// reset
+// Variables
+// breakpoints
+$width-mobile: 360px;
+$width-tablet: 768px;
+$width-desktop: 1248px;
+
+// colors
+$color-primary: #ffffff;
+$color-background-main: #304571;
+$color-background-secondary: #000000;
+$color-highlight-pink: #ff70d9;
+$color-highlight-yellow: #ebff00;
+
+// other
+$header-height-desktop: 80px;
+
+// Mixins
+
+@mixin tablet-media-query {
+  @media (max-width: $width-tablet) and (min-width: $width-mobile) {
+    @content;
+  }
+}
+
+@mixin mobile-media-query {
+  @media (max-width: $width-mobile) {
+    @content;
+  }
+}
+
+@mixin gradient-hover {
+  background: linear-gradient(
+    90deg,
+    $color-highlight-yellow,
+    $color-highlight-pink
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+@mixin layout-container {
+  max-width: $width-desktop;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 80px;
+
+  @include tablet-media-query {
+    padding: 30px;
+  }
+
+  @include mobile-media-query {
+    padding: 20px;
+  }
+}
+
+// Reset
 *,
 *::before,
 *::after {
@@ -12,13 +69,12 @@
 html,
 body {
   height: 100%;
-}
-body {
   font-family: "Lato", "Arial", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
+  background-color: $color-background-main;
+  color: $color-primary;
 }
 a {
   text-decoration: none;
@@ -46,4 +102,68 @@ button {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+// Styles
+
+.header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: $header-height-desktop;
+  width: 100%;
+  background-color: $color-background-secondary;
+  align-items: center;
+  justify-content: space-around;
+
+  &__container {
+    @include layout-container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+  }
+
+  &__nav-list {
+    display: flex;
+    // TODO: Create variables
+    gap: 50px;
+  }
+
+  &__nav-item {
+    &:hover {
+      cursor: pointer;
+      @include gradient-hover;
+    }
+  }
+
+  &__nav-basket-icon:hover {
+    & > path {
+      fill: url(#linear-gradient-basket-icon);
+    }
+  }
+}
+
+.hero-banner {
+  max-width: unset;
+  width: 100vw;
+  padding-top: $header-height-desktop;
+  height: 555px;
+  background-image: image-set(
+    url("./assets/images/hero_banner_bg@1x.webp") 1x,
+    url("./assets/images/hero_banner_bg@2x.webp") 2x
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__container {
+    @include layout-container;
+  }
+}
+
+.content-container {
+  @include layout-container;
 }
