@@ -1,3 +1,7 @@
+import { useState, useCallback } from "react";
+
+import { useIsMobile } from "./hooks/useIsMobile";
+
 import { NAV_LINKS } from "./constants/contentConfig";
 import "./App.scss";
 
@@ -26,37 +30,81 @@ function BasketIcon(props) {
           y2="20"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EBFF00" />
-          <stop offset="1" stop-color="#FF70D9" />
+          <stop stopColor="#EBFF00" />
+          <stop offset="1" stopColor="#FF70D9" />
         </linearGradient>
       </defs>
     </svg>
   );
 }
 
+function MenuLinks({ direction = "row" }) {
+  return (
+    <ul className={`menu menu--${direction}`}>
+      {NAV_LINKS.map((nav) => (
+        <li className="menu__item" key={nav.id + direction}>
+          {nav.label}
+        </li>
+      ))}
+      <li className="menu__item">
+        <BasketIcon className="menu__basket-icon" />
+      </li>
+    </ul>
+  );
+}
+
+function BurgerMenu({ isOpen, onClick }) {
+  return (
+    <>
+      <button
+        className={`burger ${isOpen ? "burger--open" : ""}`}
+        onClick={onClick}
+        aria-label="Toggle menu"
+        aria-expanded={isOpen}
+      >
+        <span className="burger__line" />
+        <span className="burger__line" />
+        <span className="burger__line" />
+      </button>
+
+      <nav
+        className={`burger__nav ${isOpen ? "burger__nav--open" : ""}`}
+        aria-hidden={!isOpen}
+      >
+        <MenuLinks direction="column" />
+      </nav>
+    </>
+  );
+}
+
 function Header() {
+  const isMobile = useIsMobile();
+
+  const [isBurgerOpen, toggleBurger] = useState(false);
+  const onBurgerClick = useCallback(() => {
+    toggleBurger((prev) => !prev);
+  }, []);
+
   return (
     <header className="header">
       <div className="header__container">
-        <img
-          src="logo.svg"
-          className="header__logo"
-          alt="logo"
-          width={104}
-          height={35}
-        />
-        <nav>
-          <ul className="header__nav-list">
-            {NAV_LINKS.map((nav) => (
-              <li className="header__nav-item" key="nav.id">
-                {nav.label}
-              </li>
-            ))}
-            <li className="header__nav-item">
-              <BasketIcon className="header__nav-basket-icon" />
-            </li>
-          </ul>
-        </nav>
+        <div className="header__logo-container">
+          <img
+            src="logo.svg"
+            className="header__logo"
+            alt="logo"
+            width={104}
+            height={35}
+          />
+        </div>
+
+        {isMobile ? (
+          <BurgerMenu isOpen={isBurgerOpen} onClick={onBurgerClick} />
+        ) : (
+          <nav className="header__nav">
+            <MenuLinks />
+          </nav>
+        )}
       </div>
     </header>
   );
@@ -68,7 +116,21 @@ function App() {
       <Header />
       <main>
         <section className="hero-banner">
-          <div className="hero-banner__container">Hero Banner</div>
+          <div className="hero-banner__container">
+            <div className="hero-banner__content">
+              <h1 className="hero-banner__title">
+                Discover the vast expanses of{" "}
+                <span className="hero-banner__title--highlight">space</span>
+              </h1>
+              <h3 className="hero-banner__subtitle">
+                Where the possibilities are{" "}
+                <span className="hero-banner__subtitle--highlight">
+                  endless!
+                </span>
+              </h3>
+            </div>
+            <div className="hero-banner__planet" />
+          </div>
         </section>
         <div className="content-container">
           <section>Cards</section>

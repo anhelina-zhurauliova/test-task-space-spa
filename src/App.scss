@@ -16,22 +16,30 @@ $color-highlight-yellow: #ebff00;
 
 // other
 $header-height-desktop: 80px;
+$header-height-mobile: 48px;
 
 // Mixins
 
+@mixin desktop-media-query {
+  @media (min-width: $width-desktop) {
+    @content;
+  }
+}
+
 @mixin tablet-media-query {
-  @media (max-width: $width-tablet) and (min-width: $width-mobile) {
+  @media (min-width: $width-tablet) {
     @content;
   }
 }
 
 @mixin mobile-media-query {
-  @media (max-width: $width-mobile) {
+  @media (min-width: $width-mobile) {
     @content;
   }
 }
 
 @mixin gradient-hover {
+  // TODO: create mixin for gradient
   background: linear-gradient(
     90deg,
     $color-highlight-yellow,
@@ -47,14 +55,109 @@ $header-height-desktop: 80px;
   max-width: $width-desktop;
   margin: 0 auto;
   width: 100%;
-  padding: 0 80px;
+  padding: 0 20px;
 
   @include tablet-media-query {
-    padding: 30px;
+    padding: 0 30px;
   }
 
-  @include mobile-media-query {
-    padding: 20px;
+  @include desktop-media-query {
+    padding: 0 80px;
+  }
+}
+
+// Typography
+// heading
+%text-heading-xl {
+  font-size: 40px;
+
+  font-weight: 800;
+
+  @include desktop-media-query {
+    font-size: 74px;
+  }
+}
+
+%text-heading-lg {
+  font-size: 36px;
+  font-weight: 800;
+
+  @include tablet-media-query {
+    font-size: 48px;
+  }
+
+  @include desktop-media-query {
+    font-size: 72px;
+  }
+}
+
+%text-heading-md {
+  font-weight: 800;
+  font-size: 40px;
+
+  @include desktop-media-query {
+    font-size: 46px;
+  }
+}
+
+%text-heading-sm {
+  font-size: 24px;
+  font-weight: 800px;
+
+  @include desktop-media-query {
+    font-size: 32px;
+  }
+}
+
+%text-heading-xs {
+  font-size: 16px;
+  font-weight: 800px;
+
+  @include tablet-media-query {
+    font-size: 22px;
+  }
+
+  @include desktop-media-query {
+    font-size: 32px;
+  }
+}
+
+// Body
+%text-body {
+  font-size: 14px;
+  font-weight: 700;
+
+  @include tablet-media-query {
+    font-size: 16px;
+  }
+
+  @include desktop-media-query {
+    font-size: 20px;
+  }
+}
+
+%text-body-bold {
+  @extend %text-body;
+  font-weight: 800;
+}
+
+%text-body-sm {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+%text-body-sm-bold {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+// Button
+%text-button {
+  font-size: 16px;
+  font-weight: 700;
+
+  @include desktop-media-query {
+    font-size: 22px;
   }
 }
 
@@ -72,7 +175,6 @@ body {
   font-family: "Lato", "Arial", sans-serif;
   font-weight: 700;
   font-size: 16px;
-  line-height: 1.5;
   background-color: $color-background-main;
   color: $color-primary;
 }
@@ -105,17 +207,15 @@ table {
 }
 
 // Styles
-
 .header {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: $header-height-desktop;
   width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  height: $header-height-desktop;
   background-color: $color-background-secondary;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 
   &__container {
     @include layout-container;
@@ -124,23 +224,32 @@ table {
     align-items: center;
   }
 
-  &__logo {
+  &__logo-container {
+  }
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  color: #ffffff;
+
+  &--column {
+    flex-direction: column;
   }
 
-  &__nav-list {
-    display: flex;
-    // TODO: Create variables
-    gap: 50px;
+  &--row {
+    flex-direction: row;
   }
 
-  &__nav-item {
+  &__item {
     &:hover {
       cursor: pointer;
       @include gradient-hover;
     }
   }
 
-  &__nav-basket-icon:hover {
+  &__basket-icon:hover {
     & > path {
       fill: url(#linear-gradient-basket-icon);
     }
@@ -148,9 +257,6 @@ table {
 }
 
 .hero-banner {
-  max-width: unset;
-  width: 100vw;
-  padding-top: $header-height-desktop;
   height: 555px;
   background-image: image-set(
     url("./assets/images/hero_banner_bg@1x.webp") 1x,
@@ -161,6 +267,97 @@ table {
 
   &__container {
     @include layout-container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 60%;
+  }
+
+  &__title {
+    @extend %text-heading-lg;
+    &--highlight {
+      color: $color-highlight-pink;
+    }
+  }
+
+  &__subtitle {
+    @extend %text-heading-sm;
+    &--highlight {
+      color: $color-highlight-yellow;
+    }
+  }
+
+  &__planet {
+    width: 33%;
+    aspect-ratio: 1/1;
+    background-image: image-set(
+      url("./assets/images/planet@1x.webp") 1x,
+      url("./assets/images/planet@2x.webp") 2x
+    );
+    background-repeat: no-repeat;
+  }
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  background: none;
+  position: fixed;
+  right: 20px;
+  width: 23px;
+  height: 23px;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  gap: 4px;
+
+  &__line {
+    height: 1.5px;
+    background-color: $color-primary;
+    transition: transform 0.3s ease, opacity 0.3s ease, border-radius 0.3s ease;
+    border-radius: 16px;
+  }
+
+  &--open {
+    .burger__line:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+      height: 2px;
+      border-radius: 0px;
+    }
+
+    .burger__line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger__line:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+      height: 2px;
+      border-radius: 0px;
+    }
+  }
+
+  &__nav {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    background: $color-background-secondary;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+    z-index: 1000;
+
+    &--open {
+      transform: translateX(0);
+    }
   }
 }
 
