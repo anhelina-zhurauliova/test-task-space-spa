@@ -13,13 +13,30 @@ $color-background-main: #304571;
 $color-background-secondary: #000000;
 $color-highlight-pink: #ff70d9;
 $color-highlight-yellow: #ebff00;
+$color-background-drawer: #0d1e48;
+$color-gradient-black: #0f1420c9;
+
+// border radius
+$border-radius: 16px;
+$border-radius-lg: 100px;
 
 // other
 $header-height-desktop: 80px;
 $header-height-mobile: 48px;
 
-// Mixins
+// gradient
+$gradient-dark-black: linear-gradient(
+  to right,
+  rgba($color-gradient-black, 0.79) 0%,
+  rgba($color-background-secondary, 0) 100%
+);
+$gradient-yellow-pink: linear-gradient(
+  90deg,
+  $color-highlight-yellow,
+  $color-highlight-pink
+);
 
+// Mixins
 @mixin desktop-media-query {
   @media (min-width: $width-desktop) {
     @content;
@@ -36,19 +53,6 @@ $header-height-mobile: 48px;
   @media (min-width: $width-mobile) {
     @content;
   }
-}
-
-@mixin gradient-hover {
-  // TODO: create mixin for gradient
-  background: linear-gradient(
-    90deg,
-    $color-highlight-yellow,
-    $color-highlight-pink
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
 }
 
 @mixin layout-container {
@@ -70,8 +74,8 @@ $header-height-mobile: 48px;
 // heading
 %text-heading-xl {
   font-size: 40px;
-
   font-weight: 800;
+  line-height: 1;
 
   @include desktop-media-query {
     font-size: 74px;
@@ -81,6 +85,7 @@ $header-height-mobile: 48px;
 %text-heading-lg {
   font-size: 36px;
   font-weight: 800;
+  line-height: 1;
 
   @include tablet-media-query {
     font-size: 48px;
@@ -112,6 +117,7 @@ $header-height-mobile: 48px;
 %text-heading-xs {
   font-size: 16px;
   font-weight: 800px;
+  line-height: 1.2;
 
   @include tablet-media-query {
     font-size: 22px;
@@ -119,6 +125,16 @@ $header-height-mobile: 48px;
 
   @include desktop-media-query {
     font-size: 32px;
+  }
+}
+
+%text-heading-xxs {
+  font-size: 16px;
+  font-weight: 800px;
+  line-height: 1.2;
+
+  @include desktop-media-query {
+    font-size: 26px;
   }
 }
 
@@ -155,13 +171,14 @@ $header-height-mobile: 48px;
 %text-button {
   font-size: 16px;
   font-weight: 700;
+  line-height: 1;
 
   @include desktop-media-query {
     font-size: 22px;
   }
 }
 
-// Reset
+// Reset -----
 *,
 *::before,
 *::after {
@@ -174,9 +191,7 @@ body {
   height: 100%;
   font-family: "Lato", "Arial", sans-serif;
   font-weight: 700;
-  font-size: 16px;
-  background-color: $color-background-main;
-  color: $color-primary;
+  font-size: 18px;
 }
 a {
   text-decoration: none;
@@ -207,6 +222,16 @@ table {
 }
 
 // Styles
+
+body {
+  color: $color-primary;
+  background-image: linear-gradient(
+    196.2deg,
+    $color-background-drawer 0%,
+    $color-background-main 100%
+  );
+}
+
 .header {
   width: 100%;
   display: flex;
@@ -232,7 +257,7 @@ table {
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  color: #ffffff;
+  color: $color-primary;
 
   &--column {
     flex-direction: column;
@@ -245,7 +270,11 @@ table {
   &__item {
     &:hover {
       cursor: pointer;
-      @include gradient-hover;
+      background: $gradient-yellow-pink;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
   }
 
@@ -257,13 +286,23 @@ table {
 }
 
 .hero-banner {
-  height: 555px;
-  background-image: image-set(
-    url("./assets/images/hero_banner_bg@1x.webp") 1x,
-    url("./assets/images/hero_banner_bg@2x.webp") 2x
-  );
+  height: 450px;
+  background-image: $gradient-dark-black,
+    image-set(
+      url("./assets/images/hero_banner_bg@1x.webp") 1x,
+      url("./assets/images/hero_banner_bg@2x.webp") 2x
+    );
+  background-size: 100% 100%, cover;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position: 0 0, center;
+
+  @include tablet-media-query {
+    height: 420px;
+  }
+
+  @include desktop-media-query {
+    height: 490px;
+  }
 
   &__container {
     @include layout-container;
@@ -271,14 +310,45 @@ table {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    background-image: image-set(
+      url("./assets/images/planet@1x.webp") 1x,
+      url("./assets/images/planet@2x.webp") 2x
+    );
+    background-repeat: no-repeat;
+    background-size: 300px auto;
+    background-position: left 50% top -120px;
+
+    @include tablet-media-query {
+      background-position: top 50% right -100px;
+    }
+
+    @include desktop-media-query {
+      background-size: 360px auto;
+      background-position: right 50%;
+    }
   }
 
   &__content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
+    margin: 0 auto;
     height: 100%;
-    width: 60%;
+    width: 100%;
+    padding-bottom: 44px;
+    text-align: center;
+    gap: 17px;
+    align-items: center;
+
+    @include tablet-media-query {
+      width: 70%;
+      text-align: start;
+      justify-content: center;
+      align-items: flex-start;
+      margin: unset;
+      gap: 22px;
+      padding-bottom: 0px;
+    }
   }
 
   &__title {
@@ -289,20 +359,10 @@ table {
   }
 
   &__subtitle {
-    @extend %text-heading-sm;
+    @extend %text-heading-xs;
     &--highlight {
       color: $color-highlight-yellow;
     }
-  }
-
-  &__planet {
-    width: 33%;
-    aspect-ratio: 1/1;
-    background-image: image-set(
-      url("./assets/images/planet@1x.webp") 1x,
-      url("./assets/images/planet@2x.webp") 2x
-    );
-    background-repeat: no-repeat;
   }
 }
 
@@ -323,7 +383,7 @@ table {
     height: 1.5px;
     background-color: $color-primary;
     transition: transform 0.3s ease, opacity 0.3s ease, border-radius 0.3s ease;
-    border-radius: 16px;
+    border-radius: $border-radius;
   }
 
   &--open {
@@ -348,7 +408,7 @@ table {
     position: fixed;
     inset: 0;
     display: flex;
-    background: $color-background-secondary;
+    background-color: $color-background-drawer;
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
@@ -363,4 +423,31 @@ table {
 
 .content-container {
   @include layout-container;
+}
+
+.button {
+  @extend %text-button;
+  padding: 14px 40px;
+  width: fit-content;
+  background-color: $color-highlight-yellow;
+  color: $color-background-secondary;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border-radius: $border-radius-lg;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &--outlined {
+    background-color: transparent;
+    border: 2px solid $color-highlight-yellow;
+    color: $color-highlight-yellow;
+
+    &:hover {
+      background-color: transparent;
+      opacity: 0.6;
+    }
+  }
 }

@@ -2,7 +2,11 @@ import { useState, useCallback } from "react";
 
 import { useIsMobile } from "./hooks/useIsMobile";
 
-import { NAV_LINKS } from "./constants/contentConfig";
+import {
+  NAV_LINKS,
+  LEARN_MORE_LABEL,
+  HERO_BANNER_CONTENT,
+} from "./constants/contentConfig";
 import "./App.scss";
 
 function BasketIcon(props) {
@@ -110,6 +114,14 @@ function Header() {
   );
 }
 
+function Button({ variant = "filled", label, className = "" }) {
+  return (
+    <button className={`button button--${variant} ${className}`}>
+      {label}
+    </button>
+  );
+}
+
 function App() {
   return (
     <>
@@ -119,17 +131,19 @@ function App() {
           <div className="hero-banner__container">
             <div className="hero-banner__content">
               <h1 className="hero-banner__title">
-                Discover the vast expanses of{" "}
-                <span className="hero-banner__title--highlight">space</span>
+                {HERO_BANNER_CONTENT.title}
+                <span className="hero-banner__title--highlight">
+                  {HERO_BANNER_CONTENT.title_highlight}
+                </span>
               </h1>
               <h3 className="hero-banner__subtitle">
-                Where the possibilities are{" "}
+                {HERO_BANNER_CONTENT.subtitle}
                 <span className="hero-banner__subtitle--highlight">
-                  endless!
+                  {HERO_BANNER_CONTENT.subtitle_highlight}
                 </span>
               </h3>
+              <Button label={LEARN_MORE_LABEL} />
             </div>
-            <div className="hero-banner__planet" />
           </div>
         </section>
         <div className="content-container">
