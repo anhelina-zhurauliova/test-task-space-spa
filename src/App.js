@@ -6,6 +6,7 @@ import {
   NAV_LINKS,
   LEARN_MORE_LABEL,
   HERO_BANNER_CONTENT,
+  OFFER_CARDS,
 } from "./constants/contentConfig";
 import "./App.scss";
 
@@ -92,15 +93,13 @@ function Header() {
   return (
     <header className="header">
       <div className="header__container">
-        <div className="header__logo-container">
-          <img
-            src="logo.svg"
-            className="header__logo"
-            alt="logo"
-            width={104}
-            height={35}
-          />
-        </div>
+        <img
+          src="logo.svg"
+          className="header__logo"
+          alt="logo"
+          width={104}
+          height={35}
+        />
 
         {isMobile ? (
           <BurgerMenu isOpen={isBurgerOpen} onClick={onBurgerClick} />
@@ -122,6 +121,18 @@ function Button({ variant = "filled", label, className = "" }) {
   );
 }
 
+function Card({ title, subtitle, cta, bgImage }) {
+  return (
+    <div className={`card card--bg-${bgImage}`}>
+      <div className="card__content-container">
+        <h3 className="card__title">{title}</h3>
+        <h4 className="card__subtitle">{subtitle}</h4>
+        <Button variant="outlined" label={cta} />
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <>
@@ -136,19 +147,25 @@ function App() {
                   {HERO_BANNER_CONTENT.title_highlight}
                 </span>
               </h1>
-              <h3 className="hero-banner__subtitle">
+              <h2 className="hero-banner__subtitle">
                 {HERO_BANNER_CONTENT.subtitle}
                 <span className="hero-banner__subtitle--highlight">
                   {HERO_BANNER_CONTENT.subtitle_highlight}
                 </span>
-              </h3>
+              </h2>
               <Button label={LEARN_MORE_LABEL} />
             </div>
           </div>
         </section>
         <div className="content-container">
-          <section>Cards</section>
-          <section>Read more</section>
+          <section className="section-block">
+            <h2 className="section-block__title">Offers</h2>
+            <div className="offers-cards">
+              {OFFER_CARDS.map((cardInfo) => (
+                <Card key={cardInfo.id} {...cardInfo} />
+              ))}
+            </div>
+          </section>
         </div>
       </main>
     </>

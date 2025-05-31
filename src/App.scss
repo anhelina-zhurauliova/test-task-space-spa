@@ -20,6 +20,30 @@ $color-gradient-black: #0f1420c9;
 $border-radius: 16px;
 $border-radius-lg: 100px;
 
+// spacing
+// base is 4px
+$spacing-scale: (
+  1: 8px,
+  2: 12px,
+  3: 16px,
+  4: 20px,
+  5: 24px,
+  6: 28px,
+  7: 32px,
+  8: 36px,
+  9: 40px,
+  10: 44px,
+  11: 48px,
+  12: 52px,
+  13: 56px,
+  14: 64px,
+  15: 80px,
+);
+
+@function spacing($step) {
+  @return map-get($spacing-scale, $step);
+}
+
 // other
 $header-height-desktop: 80px;
 $header-height-mobile: 48px;
@@ -59,29 +83,27 @@ $gradient-yellow-pink: linear-gradient(
   max-width: $width-desktop;
   margin: 0 auto;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 spacing(4);
 
   @include tablet-media-query {
-    padding: 0 30px;
+    padding: 0 spacing(7);
   }
 
   @include desktop-media-query {
-    padding: 0 80px;
+    padding: 0 spacing(15);
   }
+}
+
+@mixin gradient-bg-image($image1x, $image2x, $gradient: $gradient-dark-black) {
+  background-image: #{$gradient},
+    image-set(url(#{$image1x}) 1x, url(#{$image2x}) 2x);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 // Typography
 // heading
-%text-heading-xl {
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1;
-
-  @include desktop-media-query {
-    font-size: 74px;
-  }
-}
-
 %text-heading-lg {
   font-size: 36px;
   font-weight: 800;
@@ -99,6 +121,7 @@ $gradient-yellow-pink: linear-gradient(
 %text-heading-md {
   font-weight: 800;
   font-size: 40px;
+  line-height: 1;
 
   @include desktop-media-query {
     font-size: 46px;
@@ -106,8 +129,13 @@ $gradient-yellow-pink: linear-gradient(
 }
 
 %text-heading-sm {
-  font-size: 24px;
-  font-weight: 800px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+
+  @include tablet-media-query {
+    font-size: 24px;
+  }
 
   @include desktop-media-query {
     font-size: 32px;
@@ -116,7 +144,7 @@ $gradient-yellow-pink: linear-gradient(
 
 %text-heading-xs {
   font-size: 16px;
-  font-weight: 800px;
+  font-weight: 800;
   line-height: 1.2;
 
   @include tablet-media-query {
@@ -130,7 +158,7 @@ $gradient-yellow-pink: linear-gradient(
 
 %text-heading-xxs {
   font-size: 16px;
-  font-weight: 800px;
+  font-weight: 800;
   line-height: 1.2;
 
   @include desktop-media-query {
@@ -142,6 +170,7 @@ $gradient-yellow-pink: linear-gradient(
 %text-body {
   font-size: 14px;
   font-weight: 700;
+  line-height: 1;
 
   @include tablet-media-query {
     font-size: 16px;
@@ -155,16 +184,19 @@ $gradient-yellow-pink: linear-gradient(
 %text-body-bold {
   @extend %text-body;
   font-weight: 800;
+  line-height: 1;
 }
 
 %text-body-sm {
   font-size: 18px;
   font-weight: 700;
+  line-height: 1;
 }
 
 %text-body-sm-bold {
   font-size: 18px;
   font-weight: 800;
+  line-height: 1;
 }
 
 // Button
@@ -188,7 +220,6 @@ $gradient-yellow-pink: linear-gradient(
 }
 html,
 body {
-  height: 100%;
   font-family: "Lato", "Arial", sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -230,15 +261,16 @@ body {
     $color-background-drawer 0%,
     $color-background-main 100%
   );
+  height: 100%;
 }
 
 .header {
   width: 100%;
-  display: flex;
   position: sticky;
   top: 0;
   height: $header-height-desktop;
   background-color: $color-background-secondary;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 
@@ -248,15 +280,12 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-
-  &__logo-container {
-  }
 }
 
 .menu {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: spacing(6);
   color: $color-primary;
 
   &--column {
@@ -287,14 +316,10 @@ body {
 
 .hero-banner {
   height: 450px;
-  background-image: $gradient-dark-black,
-    image-set(
-      url("./assets/images/hero_banner_bg@1x.webp") 1x,
-      url("./assets/images/hero_banner_bg@2x.webp") 2x
-    );
-  background-size: 100% 100%, cover;
-  background-repeat: no-repeat;
-  background-position: 0 0, center;
+  @include gradient-bg-image(
+    "./assets/images/hero_banner_bg@1x.webp",
+    "./assets/images/hero_banner_bg@2x.webp"
+  );
 
   @include tablet-media-query {
     height: 420px;
@@ -324,7 +349,7 @@ body {
 
     @include desktop-media-query {
       background-size: 360px auto;
-      background-position: right 50%;
+      background-position: right spacing(9) top 50%;
     }
   }
 
@@ -335,9 +360,9 @@ body {
     margin: 0 auto;
     height: 100%;
     width: 100%;
-    padding-bottom: 44px;
+    padding-bottom: spacing(10);
     text-align: center;
-    gap: 17px;
+    gap: spacing(3);
     align-items: center;
 
     @include tablet-media-query {
@@ -346,7 +371,7 @@ body {
       justify-content: center;
       align-items: flex-start;
       margin: unset;
-      gap: 22px;
+      gap: spacing(4);
       padding-bottom: 0px;
     }
   }
@@ -371,13 +396,13 @@ body {
   flex-direction: column;
   background: none;
   position: fixed;
-  right: 20px;
-  width: 23px;
+  right: spacing(4);
+  width: 25px;
   height: 23px;
   border: none;
   cursor: pointer;
   z-index: 1001;
-  gap: 4px;
+  gap: spacing(1);
 
   &__line {
     height: 1.5px;
@@ -388,7 +413,7 @@ body {
 
   &--open {
     .burger__line:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
+      transform: translateY(10px) rotate(45deg);
       height: 2px;
       border-radius: 0px;
     }
@@ -398,7 +423,7 @@ body {
     }
 
     .burger__line:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
+      transform: translateY(-10px) rotate(-45deg);
       height: 2px;
       border-radius: 0px;
     }
@@ -427,7 +452,7 @@ body {
 
 .button {
   @extend %text-button;
-  padding: 14px 40px;
+  padding: spacing(1) spacing(9);
   width: fit-content;
   background-color: $color-highlight-yellow;
   color: $color-background-secondary;
@@ -444,10 +469,114 @@ body {
     background-color: transparent;
     border: 2px solid $color-highlight-yellow;
     color: $color-highlight-yellow;
+  }
 
-    &:hover {
-      background-color: transparent;
-      opacity: 0.6;
+  @include tablet-media-query {
+    padding: spacing(2) spacing(9);
+  }
+}
+
+.offers-cards {
+  padding-top: spacing(6);
+  display: grid;
+  gap: spacing(5);
+  grid-template-columns: 1fr;
+
+  @include tablet-media-query {
+    padding-top: spacing(9);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop-media-query {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+
+    .card:nth-child(1),
+    .card:nth-child(4) {
+      grid-column: 1 / -1;
+
+      .card__title {
+        font-size: 74px;
+      }
+
+      & > .card__subtitle {
+        font-size: 26px;
+      }
     }
+  }
+}
+
+.card {
+  height: 350px;
+  color: $color-primary;
+  border-radius: $border-radius;
+
+  padding: spacing(6);
+
+  @include desktop-media-query {
+    padding: spacing(8);
+  }
+
+  &__content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: spacing(4);
+    height: 100%;
+
+    @include tablet-media-query {
+      width: 85%;
+    }
+    @include desktop-media-query {
+      width: 60%;
+    }
+  }
+
+  &--bg-nebula-purple {
+    @include gradient-bg-image(
+      "./assets/images/nebula_purple_card_bg@1x.webp",
+      "./assets/images/nebula_purple_card_bg@2x.webp"
+    );
+  }
+
+  &--bg-nebula-dark {
+    @include gradient-bg-image(
+      "./assets/images/nebula_dark_card_bg@1x.webp",
+      "./assets/images/nebula_dark_card_bg@2x.webp"
+    );
+  }
+
+  &--bg-milky-way {
+    @include gradient-bg-image(
+      "./assets/images/milky_way_card_bg@1x.webp",
+      "./assets/images/milky_way_card_bg@2x.webp"
+    );
+  }
+
+  &--bg-nebula-blue {
+    @include gradient-bg-image(
+      "./assets/images/nebula_blue_card_bg@1x.webp",
+      "./assets/images/nebula_blue_card_bg@2x.webp"
+    );
+  }
+
+  &__title {
+    @extend %text-heading-md;
+  }
+
+  &__subtitle {
+    @extend %text-heading-xxs;
+  }
+}
+
+.section-block {
+  padding-top: spacing(12);
+
+  @include tablet-media-query {
+    padding-top: spacing(13);
+  }
+
+  &__title {
+    @extend %text-heading-sm;
   }
 }
