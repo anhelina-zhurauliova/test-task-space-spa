@@ -629,3 +629,18 @@ body {
     @extend %text-body;
   }
 }
+
+.footer {
+  display: flex;
+  height: 127px;
+  background: $color-background-secondary;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    @extend %text-body-sm-bold;
+    color: $color-highlight-yellow;
+    padding-bottom: spacing(4);
+  }
+}

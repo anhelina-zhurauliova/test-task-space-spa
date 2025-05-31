@@ -58,3 +58,5 @@ export const SPACE_JOURNEY_SECTION = {
   extendedContent:
     " This is the hidden content that will appear when the user clicks read more button!",
 };
+
+export const FOOTER_TEXT = "Exciting space adventure!";

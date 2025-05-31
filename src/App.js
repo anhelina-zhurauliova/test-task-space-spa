@@ -8,6 +8,7 @@ import {
   HERO_BANNER_CONTENT,
   OFFER_CARDS,
   SPACE_JOURNEY_SECTION,
+  FOOTER_TEXT,
 } from "./constants/contentConfig";
 import "./App.scss";
 
@@ -114,6 +115,15 @@ function Header() {
   );
 }
 
+function Footer() {
+  return (
+    <footer className="footer">
+      <img src="rocket.svg" alt="logo" width={90} height={80} />
+      <p className="footer__text">{FOOTER_TEXT}</p>
+    </footer>
+  );
+}
+
 function Button({ variant = "filled", label, className = "" }) {
   return (
     <button className={`button button--${variant} ${className}`}>
@@ -180,6 +190,7 @@ function App() {
             </details>
           </section>
         </div>
+        <Footer />
       </main>
     </>
   );
