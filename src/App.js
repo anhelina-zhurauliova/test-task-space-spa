@@ -7,6 +7,7 @@ import {
   LEARN_MORE_LABEL,
   HERO_BANNER_CONTENT,
   OFFER_CARDS,
+  SPACE_JOURNEY_SECTION,
 } from "./constants/contentConfig";
 import "./App.scss";
 
@@ -165,6 +166,18 @@ function App() {
                 <Card key={cardInfo.id} {...cardInfo} />
               ))}
             </div>
+          </section>
+          <section className="section-block">
+            <h2 className="section-block__title">Embark on a space journey</h2>
+            <p className="journey-description">
+              {SPACE_JOURNEY_SECTION.content}
+            </p>
+            <details className="journey-description__details">
+              <p className="journey-description__extra-content">
+                {SPACE_JOURNEY_SECTION.extendedContent}
+              </p>
+              <summary className="journey-description__read-more" />
+            </details>
           </section>
         </div>
       </main>
