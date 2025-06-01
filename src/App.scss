@@ -447,6 +447,7 @@ body {
 
   &__line {
     height: 1.5px;
+    width: 100%;
     background-color: $color-primary;
     transition: transform 0.3s ease, opacity 0.3s ease, border-radius 0.3s ease;
     border-radius: $border-radius;

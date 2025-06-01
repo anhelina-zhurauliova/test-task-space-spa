@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 
 import { useIsMobile } from "./hooks/useIsMobile";
 
+import logo from "./assets/svg/logo.svg";
+import rocket from "./assets/svg/rocket.svg";
 import {
   NAV_LINKS,
   LEARN_MORE_LABEL,
@@ -96,7 +98,7 @@ function Header() {
     <header className="header">
       <div className="header__container">
         <img
-          src="logo.svg"
+          src={logo}
           className="header__logo"
           alt="logo"
           width={104}
@@ -118,7 +120,7 @@ function Header() {
 function Footer() {
   return (
     <footer className="footer">
-      <img src="rocket.svg" alt="logo" width={90} height={80} />
+      <img src={rocket} alt="rocket" width={90} height={80} />
       <p className="footer__text">{FOOTER_TEXT}</p>
     </footer>
   );
