@@ -497,7 +497,7 @@ body {
 .offers-cards {
   padding-top: spacing(6);
   display: grid;
-  gap: spacing(5);
+  gap: spacing(7);
   grid-template-columns: 1fr;
 
   @include tablet-media-query {
@@ -506,6 +506,7 @@ body {
   }
 
   @include desktop-media-query {
+    gap: spacing(9);
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
 
