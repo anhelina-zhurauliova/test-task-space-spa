@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a3a6fb9d.css",
+    "main.js": "/static/js/main.37310600.js",
+    "static/media/hero_banner_bg@2x.webp": "/static/media/hero_banner_bg@2x.d2d27a76587a09b5914a.webp",
+    "static/media/milky_way_card_bg@2x.webp": "/static/media/milky_way_card_bg@2x.dcbe8ae1222839254c7d.webp",
+    "static/media/nebula_blue_card_bg@2x.webp": "/static/media/nebula_blue_card_bg@2x.12ed5c02ba3a7a918b57.webp",
+    "static/media/nebula_purple_card_bg@2x.webp": "/static/media/nebula_purple_card_bg@2x.077b0e12d551c1fd4cd3.webp",
+    "static/media/nebula_dark_card_bg@2x.webp": "/static/media/nebula_dark_card_bg@2x.26a783e70eea1533ec04.webp",
+    "static/media/nebula_blue_card_bg@1x.webp": "/static/media/nebula_blue_card_bg@1x.a028e04158905c9ea7f9.webp",
+    "static/media/milky_way_card_bg@1x.webp": "/static/media/milky_way_card_bg@1x.e6cf0ba76a84eb364f10.webp",
+    "static/media/nebula_purple_card_bg@1x.webp": "/static/media/nebula_purple_card_bg@1x.7ba6ff7ee27797b588da.webp",
+    "static/media/nebula_dark_card_bg@1x.webp": "/static/media/nebula_dark_card_bg@1x.1f8441fd00fdbbf3d5d2.webp",
+    "static/media/hero_banner_bg@1x.webp": "/static/media/hero_banner_bg@1x.fb420c3980000f52ec7c.webp",
+    "static/media/planet@2x.webp": "/static/media/planet@2x.249c27934cf05b0166d6.webp",
+    "static/media/planet@1x.webp": "/static/media/planet@1x.4ca1170aa07b2549e7e6.webp",
+    "index.html": "/index.html",
+    "main.a3a6fb9d.css.map": "/static/css/main.a3a6fb9d.css.map",
+    "main.37310600.js.map": "/static/js/main.37310600.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a3a6fb9d.css",
+    "static/js/main.37310600.js"
+  ]
+}
