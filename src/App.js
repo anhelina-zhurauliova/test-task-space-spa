@@ -177,7 +177,7 @@ function App() {
               ))}
             </div>
           </section>
-          <section className="section-block">
+          <section className="section-block section-block--journey">
             <h2 className="section-block__title">Embark on a space journey</h2>
             <p className="journey-description">
               {SPACE_JOURNEY_SECTION.content}
