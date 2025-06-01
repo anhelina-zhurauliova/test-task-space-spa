@@ -90,6 +90,8 @@ $spacing-scale: (
 $header-height-desktop: 80px;
 $header-height-mobile: 48px;
 $opacity: 0.6;
+$read-more-label: "Read more";
+$show-less-label: "Show less";
 
 // gradient
 $gradient-dark-black: linear-gradient(
@@ -150,6 +152,7 @@ $gradient-yellow-pink: linear-gradient(
 %text-heading-lg {
   font-size: 36px;
   font-weight: 800;
+  line-height: 1;
 
   @include tablet-media-query {
     font-size: 48px;
@@ -163,6 +166,7 @@ $gradient-yellow-pink: linear-gradient(
 %text-heading-md {
   font-weight: 800;
   font-size: 40px;
+  line-height: 1;
 
   @include desktop-media-query {
     font-size: 46px;
@@ -276,6 +280,32 @@ body {
   }
 }
 
+.button {
+  @extend %text-button;
+  padding: spacing(1) spacing(9);
+  width: fit-content;
+  background-color: $color-highlight-yellow;
+  color: $color-background-secondary;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border-radius: $border-radius-lg;
+
+  &:hover {
+    opacity: $opacity;
+  }
+
+  &--outlined {
+    background-color: transparent;
+    border: 2px solid $color-highlight-yellow;
+    color: $color-highlight-yellow;
+  }
+
+  @include desktop-media-query {
+    padding: spacing(2) spacing(9);
+  }
+}
+
 .menu {
   display: flex;
   justify-content: space-between;
@@ -291,6 +321,10 @@ body {
   }
 
   &__item {
+    @extend %text-body-sm;
+    display: flex;
+    align-items: center;
+
     &:hover {
       cursor: pointer;
       background: $gradient-yellow-pink;
@@ -383,6 +417,12 @@ body {
       color: $color-highlight-yellow;
     }
   }
+
+  &__cta {
+    @include tablet-media-query {
+      padding: spacing(2) spacing(9);
+    }
+  }
 }
 
 .burger {
@@ -454,32 +494,6 @@ body {
   }
 }
 
-.button {
-  @extend %text-button;
-  padding: spacing(1) spacing(9);
-  width: fit-content;
-  background-color: $color-highlight-yellow;
-  color: $color-background-secondary;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  border-radius: $border-radius-lg;
-
-  &:hover {
-    opacity: $opacity;
-  }
-
-  &--outlined {
-    background-color: transparent;
-    border: 2px solid $color-highlight-yellow;
-    color: $color-highlight-yellow;
-  }
-
-  @include tablet-media-query {
-    padding: spacing(2) spacing(9);
-  }
-}
-
 .offers-cards {
   padding-top: spacing(6);
   display: grid;
@@ -524,7 +538,7 @@ body {
   &__content-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     gap: spacing(4);
     height: 100%;
 
@@ -533,6 +547,7 @@ body {
     }
     @include desktop-media-query {
       width: 60%;
+      justify-content: center;
     }
   }
 
@@ -609,11 +624,11 @@ body {
   }
 
   &__details[open] &__read-more::after {
-    content: "Show less";
+    content: $show-less-label;
   }
 
   &__details:not([open]) &__read-more::after {
-    content: "Read more";
+    content: $read-more-label;
   }
 
   &__read-more {

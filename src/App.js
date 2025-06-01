@@ -164,7 +164,7 @@ function App() {
                   {HERO_BANNER_CONTENT.subtitle_highlight}
                 </span>
               </h2>
-              <Button label={LEARN_MORE_LABEL} />
+              <Button label={LEARN_MORE_LABEL} className="hero-banner__cta" />
             </div>
           </div>
         </section>
