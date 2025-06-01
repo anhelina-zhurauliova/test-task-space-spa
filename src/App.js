@@ -49,7 +49,7 @@ function BasketIcon(props) {
 
 function MenuLinks({ direction = "row" }) {
   return (
-    <ul className={`menu menu--${direction}`}>
+    <ul className={`menu menu--${direction}`} aria-label="Main navigation">
       {NAV_LINKS.map((nav) => (
         <li className="menu__item" key={nav.id + direction}>
           {nav.label}
@@ -100,7 +100,7 @@ function Header() {
         <img
           src={logo}
           className="header__logo"
-          alt="logo"
+          alt="Company logo"
           width={104}
           height={35}
         />
@@ -128,7 +128,10 @@ function Footer() {
 
 function Button({ variant = "filled", label, className = "" }) {
   return (
-    <button className={`button button--${variant} ${className}`}>
+    <button
+      className={`button button--${variant} ${className}`}
+      aria-label={label}
+    >
       {label}
     </button>
   );
