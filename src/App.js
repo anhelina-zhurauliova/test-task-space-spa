@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 import { useIsMobile } from "./hooks/useIsMobile";
 
@@ -62,12 +62,25 @@ function MenuLinks({ direction = "row" }) {
   );
 }
 
-function BurgerMenu({ isOpen, onClick }) {
+function BurgerMenu() {
+  const [isOpen, toggleBurger] = useState(false);
+  const onBurgerClick = () => {
+    toggleBurger((prev) => !prev);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   return (
     <>
       <button
         className={`burger ${isOpen ? "burger--open" : ""}`}
-        onClick={onClick}
+        onClick={onBurgerClick}
         aria-label="Toggle menu"
         aria-expanded={isOpen}
       >
@@ -89,11 +102,6 @@ function BurgerMenu({ isOpen, onClick }) {
 function Header() {
   const isMobile = useIsMobile();
 
-  const [isBurgerOpen, toggleBurger] = useState(false);
-  const onBurgerClick = useCallback(() => {
-    toggleBurger((prev) => !prev);
-  }, []);
-
   return (
     <header className="header">
       <div className="header__container">
@@ -106,7 +114,7 @@ function Header() {
         />
 
         {isMobile ? (
-          <BurgerMenu isOpen={isBurgerOpen} onClick={onBurgerClick} />
+          <BurgerMenu />
         ) : (
           <nav className="header__nav">
             <MenuLinks />
