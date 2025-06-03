@@ -60,3 +60,8 @@ export const SPACE_JOURNEY_SECTION = {
 };
 
 export const FOOTER_TEXT = "Exciting space adventure!";
+
+export const SECTION_HEADERS = {
+  offers: "Offers",
+  journey: "Embark on a space journey",
+};

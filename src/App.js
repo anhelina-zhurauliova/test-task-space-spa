@@ -11,6 +11,7 @@ import {
   OFFER_CARDS,
   SPACE_JOURNEY_SECTION,
   FOOTER_TEXT,
+  SECTION_HEADERS,
 } from "./constants/contentConfig";
 import "./App.scss";
 
@@ -183,7 +184,7 @@ function App() {
         </section>
         <div className="content-container">
           <section className="section-block">
-            <h2 className="section-block__title">Offers</h2>
+            <h2 className="section-block__title">{SECTION_HEADERS.offers}</h2>
             <div className="offers-cards">
               {OFFER_CARDS.map((cardInfo) => (
                 <Card key={cardInfo.id} {...cardInfo} />
@@ -191,7 +192,7 @@ function App() {
             </div>
           </section>
           <section className="section-block section-block--journey">
-            <h2 className="section-block__title">Embark on a space journey</h2>
+            <h2 className="section-block__title">{SECTION_HEADERS.journey}</h2>
             <p className="journey-description">
               {SPACE_JOURNEY_SECTION.content}
             </p>
