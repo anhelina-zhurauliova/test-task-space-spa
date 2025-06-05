@@ -436,7 +436,7 @@ body {
   display: flex;
   flex-direction: column;
   background: none;
-  position: fixed;
+  position: absolute;
   right: spacing(4);
   width: 25px;
   height: 23px;
@@ -481,7 +481,6 @@ body {
     transition: transform 0.3s ease;
     transform: translateX(100%);
     z-index: 1000;
-    pointer-events: auto;
 
     &--open {
       transform: translateX(0);
